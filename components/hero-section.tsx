@@ -6,7 +6,7 @@ type Props = {};
 
 export const HeroSection = (props: Props) => {
   return (
-    <section className="container text-center flex flex-col items-center gap-4 md:gap-8 py-6">
+    <section className="container text-center flex flex-col items-center gap-4 md:gap-8 py-12">
       <span
         className="text-center block text-5xl md:text-[5rem]"
         role="img"
