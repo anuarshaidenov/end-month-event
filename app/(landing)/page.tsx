@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     description:
       "Easily schedule monthly recurring events at the end of each month with EndCycle, the app that fills the gap in Google Calendar.",
     images: ["landing.png"],
-    url: "https://end-month-event.vercel.app/",
+    url: "https://endmonthevent.vercel.app/",
   },
   twitter: {
     card: "summary_large_image",
