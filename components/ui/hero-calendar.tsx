@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  motion,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 type Props = {};
@@ -15,10 +10,6 @@ export const HeroCalendar = (props: Props) => {
   const { scrollYProgress } = useScroll({
     target: parentRef,
     offset: ["start end", "end start"],
-  });
-
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    console.log(latest);
   });
 
   const getRandomStartValueBetweenARange = (min: number, max: number) => {
