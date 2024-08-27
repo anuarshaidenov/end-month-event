@@ -1,6 +1,7 @@
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import ShiningButton from './ui/shining-button';
+import React from "react";
+import { Button } from "@/components/ui/button";
+import ShiningButton from "./ui/shining-button";
+import { HeroCalendar } from "./ui/hero-calendar";
 
 type Props = {};
 
@@ -28,6 +29,13 @@ export const HeroSection = (props: Props) => {
       </div>
 
       <ShiningButton>Start Scheduling Now</ShiningButton>
+
+      <div className=" aspect-video h-[50vh] -translate-x-[30%] md:w-full md:translate-x-0 md:h-auto">
+        <HeroCalendar />
+      </div>
+      {/* <div className="md:aspect-video md:static md:w-full h-screen w-screen">
+        <HeroCalendar />
+      </div> */}
     </section>
   );
 };
