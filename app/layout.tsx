@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Bricolage_Grotesque, Manrope } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
+import { Providers } from '@/lib/providers';
+import { Toaster } from '@/components/ui/toaster';
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -32,7 +34,8 @@ export default function RootLayout({
           bricolageGrotesque.variable
         )}
       >
-        {children}
+        <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );
