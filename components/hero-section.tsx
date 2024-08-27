@@ -28,7 +28,7 @@ export const HeroSection = (props: Props) => {
         </p>
       </div>
 
-      <ShiningButton className="animate-fade-in-15">
+      <ShiningButton href="#calendar-section" className="animate-fade-in-15">
         Start Scheduling Now
       </ShiningButton>
 
