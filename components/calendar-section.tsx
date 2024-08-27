@@ -4,7 +4,7 @@ type Props = {};
 
 export const CalendarSection = (props: Props) => {
   return (
-    <section className="container py-12 min-h-screen flex items-center justify-center">
+    <section className="container py-12 h-screen flex items-start justify-center">
       <CalendarCard />
     </section>
   );
