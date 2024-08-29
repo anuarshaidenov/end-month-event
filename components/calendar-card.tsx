@@ -23,6 +23,7 @@ import { useCreateEndMonthEvent } from "@/hooks/use-create-end-month-event";
 import { useSignUserInWithGoogle } from "@/hooks/use-sign-user-in";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSession } from "@/hooks/use-session";
+import { cn } from "@/lib/utils";
 
 type Props = {};
 
@@ -78,43 +79,66 @@ export const CalendarCard = (props: Props) => {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
+    <div className="flex flex-col gap-8 w-full">
+      {!sessionData?.data.session?.provider_token && (
         <Card className="max-w-4xl w-full mx-auto bg-secondary">
           <CardHeader>
-            <h4 className="font-semibold">
-              Create a recurring event for the end of the month
-            </h4>
+            Please sign in to your google account for us to be able to add the
+            event to your calendar
           </CardHeader>
-          <CardContent>
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Event title</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="border-foreground"
-                      placeholder="Salary day"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </CardContent>
           <CardFooter>
             <Button
-              disabled={isCreatingEndMonthEvent || isSigningUserInWithGoogle}
-              type="submit"
+              onClick={() => signUserInWithGoogle()}
+              disabled={isSigningUserInWithGoogle}
             >
-              Create event
+              Sign in with Google
             </Button>
           </CardFooter>
         </Card>
-      </form>
-    </Form>
+      )}
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className={cn("space-y-8 w-full", {
+            "opacity-50":
+              isSessionLoading || !sessionData?.data.session?.provider_token,
+            "pointer-events-none":
+              isSessionLoading || !sessionData?.data.session?.provider_token,
+          })}
+        >
+          <Card className="max-w-4xl w-full mx-auto bg-secondary">
+            <CardHeader>
+              <h4 className="font-semibold">
+                Create a recurring event for the end of the month
+              </h4>
+            </CardHeader>
+            <CardContent>
+              <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Event title</FormLabel>
+                    <FormControl>
+                      <Input
+                        className="border-foreground"
+                        placeholder="Salary day"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </CardContent>
+            <CardFooter>
+              <Button disabled={isCreatingEndMonthEvent} type="submit">
+                Create event
+              </Button>
+            </CardFooter>
+          </Card>
+        </form>
+      </Form>
+    </div>
   );
 };

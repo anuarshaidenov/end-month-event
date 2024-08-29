@@ -16,13 +16,12 @@ export const useSignUserInWithGoogle = () => {
             access_type: "offline",
             prompt: "consent",
           },
-          skipBrowserRedirect: true,
         },
       });
     },
     onSuccess: (res) => {
       toast({
-        description: "Signed in successfully",
+        description: "Signing user in",
       });
     },
     onError: (error) => {
