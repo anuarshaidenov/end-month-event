@@ -21,6 +21,9 @@ import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import { useCreateEndMonthEvent } from "@/hooks/use-create-end-month-event";
 import { useSignUserInWithGoogle } from "@/hooks/use-sign-user-in";
+import { useAuth } from "@/hooks/use-auth";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useSession } from "@/hooks/use-session";
 
 type Props = {};
 
@@ -38,6 +41,11 @@ export const CalendarCard = (props: Props) => {
   });
 
   const {
+    data: sessionData,
+    isLoading: isSessionLoading,
+    isError: sessionError,
+  } = useSession();
+  const {
     mutateAsync: signUserInWithGoogle,
     isPending: isSigningUserInWithGoogle,
   } = useSignUserInWithGoogle();
@@ -47,8 +55,21 @@ export const CalendarCard = (props: Props) => {
   } = useCreateEndMonthEvent();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await signUserInWithGoogle();
-    await createEndMonthEvent();
+    const googleToken = sessionData?.data.session?.provider_token;
+    if (!googleToken || sessionError) {
+      return form.setError("title", {
+        message: "No sign in",
+      });
+    }
+
+    await createEndMonthEvent({
+      googleToken,
+      eventTitle: values.title,
+    });
+  }
+
+  if (isSessionLoading) {
+    return <Skeleton className="h-[226px]" />;
   }
 
   return (

@@ -4,8 +4,11 @@ import { useMutation } from "@tanstack/react-query";
 export const useCreateEndMonthEvent = () => {
   const { toast } = useToast();
   return useMutation({
-    mutationFn: () => {
-      console.log("will create");
+    mutationFn: (data: { eventTitle: string; googleToken: string }) => {
+      console.log({
+        title: data.eventTitle,
+        token: data.googleToken,
+      });
       return Promise.resolve("success");
     },
     onSuccess: (res) => {
