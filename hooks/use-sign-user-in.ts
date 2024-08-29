@@ -16,6 +16,7 @@ export const useSignUserInWithGoogle = () => {
             access_type: "offline",
             prompt: "consent",
           },
+          skipBrowserRedirect: true,
         },
       });
     },
