@@ -16,7 +16,6 @@ export const useSignUserInWithGoogle = () => {
             access_type: "offline",
             prompt: "consent",
           },
-          redirectTo: "https://endmonthevent.vercel.app/",
         },
       });
     },
