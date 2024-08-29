@@ -20,6 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import { useCreateEndMonthEvent } from "@/hooks/use-create-end-month-event";
+import { useSignUserInWithGoogle } from "@/hooks/use-sign-user-in";
 
 type Props = {};
 
@@ -36,10 +37,18 @@ export const CalendarCard = (props: Props) => {
     },
   });
 
-  const { mutate, isPending } = useCreateEndMonthEvent();
+  const {
+    mutateAsync: signUserInWithGoogle,
+    isPending: isSigningUserInWithGoogle,
+  } = useSignUserInWithGoogle();
+  const {
+    mutateAsync: createEndMonthEvent,
+    isPending: isCreatingEndMonthEvent,
+  } = useCreateEndMonthEvent();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    mutate();
+    await signUserInWithGoogle();
+    await createEndMonthEvent();
   }
 
   return (
@@ -69,7 +78,10 @@ export const CalendarCard = (props: Props) => {
             />
           </CardContent>
           <CardFooter>
-            <Button disabled={isPending} type="submit">
+            <Button
+              disabled={isCreatingEndMonthEvent || isSigningUserInWithGoogle}
+              type="submit"
+            >
               Create event
             </Button>
           </CardFooter>
