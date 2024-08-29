@@ -21,7 +21,6 @@ import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import { useCreateEndMonthEvent } from "@/hooks/use-create-end-month-event";
 import { useSignUserInWithGoogle } from "@/hooks/use-sign-user-in";
-import { useAuth } from "@/hooks/use-auth";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSession } from "@/hooks/use-session";
 
@@ -57,15 +56,21 @@ export const CalendarCard = (props: Props) => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const googleToken = sessionData?.data.session?.provider_token;
     if (!googleToken || sessionError) {
-      return form.setError("title", {
-        message: "No sign in",
-      });
+      await signUserInWithGoogle();
+      return;
     }
 
-    await createEndMonthEvent({
-      googleToken,
-      eventTitle: values.title,
-    });
+    await createEndMonthEvent(
+      {
+        googleToken,
+        eventTitle: values.title,
+      },
+      {
+        onSuccess: () => {
+          form.reset();
+        },
+      }
+    );
   }
 
   if (isSessionLoading) {

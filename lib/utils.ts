@@ -20,3 +20,10 @@ export function encodedRedirect(
 ) {
   return redirect(`${path}?${type}=${encodeURIComponent(message)}`);
 }
+
+export const getLastDayOfMonth = () => {
+  const date = new Date();
+  const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0); // Get last day of current month
+  lastDay.setHours(9, 0, 0, 0); // Set event time to 9 AM (example time)
+  return lastDay;
+};
