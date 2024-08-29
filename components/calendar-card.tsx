@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-} from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -16,26 +16,31 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { z } from 'zod';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { z } from "zod";
+import { useCreateEndMonthEvent } from "@/hooks/use-create-end-month-event";
 
 type Props = {};
 
 const formSchema = z.object({
   title: z.string().min(1, {
-    message: 'Title must be at least 1 characters.',
+    message: "Title must be at least 1 characters.",
   }),
 });
 export const CalendarCard = (props: Props) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: '',
+      title: "",
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {}
+  const { mutate, isPending } = useCreateEndMonthEvent();
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    mutate();
+  }
 
   return (
     <Form {...form}>
@@ -64,7 +69,9 @@ export const CalendarCard = (props: Props) => {
             />
           </CardContent>
           <CardFooter>
-            <Button type="submit">Create event</Button>
+            <Button disabled={isPending} type="submit">
+              Create event
+            </Button>
           </CardFooter>
         </Card>
       </form>
