@@ -82,7 +82,9 @@ export const CalendarCard = (props: Props) => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
         <Card className="max-w-4xl w-full mx-auto bg-secondary">
           <CardHeader>
-            <h4 className="font-semibold">Create a recurring event </h4>
+            <h4 className="font-semibold">
+              Create a recurring event for the end of the month
+            </h4>
           </CardHeader>
           <CardContent>
             <FormField
