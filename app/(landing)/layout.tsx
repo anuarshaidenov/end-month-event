@@ -1,4 +1,5 @@
 import { Footer } from "@/components/footer";
+import Header from "@/components/header";
 import { ReactNode } from "react";
 
 type Props = {
@@ -8,6 +9,7 @@ type Props = {
 function LandingLayout({ children }: Props) {
   return (
     <>
+      <Header />
       {children}
       <Footer />
     </>
