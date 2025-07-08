@@ -1,4 +1,4 @@
-# End of Month Event Creator
+# End of Month Event Creator (No longer maintained)
 
 **End of Month Event Creator** is an open-source web application that allows users to create recurring Google Calendar events on the last day of every month. Google Calendar natively lacks the ability to set such recurring events, so this app fills that gap with an easy-to-use interface.
 
